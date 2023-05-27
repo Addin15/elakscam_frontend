@@ -35,7 +35,9 @@ class _SearchPageState extends State<SearchPage> {
                 ),
               );
 
-              result == 'true' ? pageService.changePage(2) : '';
+              if (result == 'true') {
+                pageService.changePage(2);
+              }
             },
             child: const Text('Search Account Number'),
           );

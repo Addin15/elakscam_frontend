@@ -13,7 +13,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final PageController _pageController = PageController();
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
@@ -25,21 +24,15 @@ class _HomePageState extends State<HomePage> {
           appBar: AppBar(
             title: const Text('BottomNavigationBar Sample'),
           ),
-          body: PageView(
-            controller: _pageController,
-            onPageChanged: (value) {
-              pageService.changePage(value);
-            },
-            children: [
-              Text(
-                'Index 0: Home',
-                style: optionStyle,
-              ),
-              SearchPage(),
-              ReportPage(),
-              PremiumPage(),
-            ],
-          ),
+          body: [
+            Text(
+              'Index 0: Home',
+              style: optionStyle,
+            ),
+            SearchPage(),
+            ReportPage(),
+            PremiumPage(),
+          ][currentPage],
           bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             items: const <BottomNavigationBarItem>[
