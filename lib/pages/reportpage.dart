@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ReportPage extends StatefulWidget {
-  final Function changePage;
-  const ReportPage({super.key, required this.changePage});
+  const ReportPage({super.key});
 
   @override
   State<ReportPage> createState() => _ReportPageState();
