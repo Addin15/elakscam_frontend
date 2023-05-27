@@ -15,41 +15,44 @@ class _SearchPageState extends State<SearchPage> {
   String qrValue = '';
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ElevatedButton(
-          onPressed: () async {
-            final result = await Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => QrCodeScanner(screenClosed: false),
-              ),
-            );
-            result != ''
-                ? setState(() {
-                    qrValue = result;
-                  })
-                : '';
-          },
-          child: const Text('Scan QR'),
-        ),
-        Consumer<PageService>(builder: (context, pageService, child) {
-          return ElevatedButton(
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        children: [
+          ElevatedButton(
             onPressed: () async {
-              dynamic result = await Navigator.of(context).push(
+              final result = await Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => const SearchAccountNumber(),
+                  builder: (context) => QrCodeScanner(screenClosed: false),
                 ),
               );
-
-              if (result[0] == 'true') {
-                pageService.changePage(2);
-                pageService.setData1(result[1]);
-              }
+              result != ''
+                  ? setState(() {
+                      qrValue = result;
+                    })
+                  : '';
             },
-            child: const Text('Search Account Number'),
-          );
-        }),
-      ],
+            child: const Text('Scan QR'),
+          ),
+          Consumer<PageService>(builder: (context, pageService, child) {
+            return ElevatedButton(
+              onPressed: () async {
+                dynamic result = await Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const SearchAccountNumber(),
+                  ),
+                );
+
+                if (result[0] == 'true') {
+                  pageService.changePage(2);
+                  pageService.setData1(result[1]);
+                }
+              },
+              child: const Text('Search Account Number'),
+            );
+          }),
+        ],
+      ),
     );
   }
 }
