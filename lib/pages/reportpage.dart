@@ -11,15 +11,7 @@ class _ReportPageState extends State<ReportPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: widget),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: const Text('Search Account Number'),
-        ),
-      ),
+      body: Center(child: Text('Report')),
     );
   }
 }
