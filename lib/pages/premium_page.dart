@@ -57,6 +57,10 @@ class _PremiumPageState extends State<PremiumPage> {
                           borderRadius: BorderRadius.circular(
                             15.sp,
                           ),
+                          image: const DecorationImage(
+                            image: AssetImage("assets/svg/cardBackground.png"),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                         child: Column(
                           children: [
