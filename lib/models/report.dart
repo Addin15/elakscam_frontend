@@ -1,7 +1,7 @@
 import 'package:elakscam_frontend/models/user.dart';
 
 class Report {
-  String? id;
+  int? id;
   String? accountNumber;
   String? category;
   String? evidence;

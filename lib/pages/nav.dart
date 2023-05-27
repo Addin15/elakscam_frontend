@@ -1,7 +1,6 @@
 import 'package:elakscam_frontend/configs/color.dart';
-import 'package:elakscam_frontend/pages/block_account_page.dart';
+import 'package:elakscam_frontend/pages/report_list_page.dart';
 import 'package:elakscam_frontend/pages/premium_page.dart';
-import 'package:elakscam_frontend/pages/report_page.dart';
 import 'package:elakscam_frontend/pages/search_page.dart';
 import 'package:elakscam_frontend/services/page_service.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +25,7 @@ class _NavState extends State<Nav> {
           body: [
             Home(),
             SearchPage(),
-            BlockAccount(),
+            ReportListPage(),
             PremiumPage(),
           ][currentPage],
           bottomNavigationBar: BottomNavigationBar(

@@ -1,4 +1,6 @@
+import 'package:elakscam_frontend/apis/check_api.dart';
 import 'package:elakscam_frontend/configs/color.dart';
+import 'package:elakscam_frontend/models/account.dart';
 import 'package:elakscam_frontend/pages/account_result.dart';
 import 'package:elakscam_frontend/pages/scan_qr.dart';
 import 'package:flutter/material.dart';
@@ -15,91 +17,161 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   bool isValidating = false;
 
+  checkAccount(String number) async {
+    setState(() {
+      isValidating = true;
+    });
+
+    Account account = await CheckAPI.checkAccount(number);
+
+    setState(() {
+      isValidating = false;
+    });
+
+    // ignore: use_build_context_synchronously
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20.sp),
+          topRight: Radius.circular(20.sp),
+        ),
+      ),
+      builder: (context) => DraggableScrollableSheet(
+        expand: false,
+        initialChildSize: 0.95,
+        maxChildSize: 0.95,
+        builder: (_, controller) => AccountResult(account: account),
+      ),
+    );
+  }
+
+  final TextEditingController _accountController = TextEditingController();
+  final FocusNode _accountFocus = FocusNode();
+
   String qrValue = '';
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              child: InkWell(
-                onTap: () async {
-                  dynamic code = Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ScanQR()));
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Stack(
+        children: [
+          Container(
+            color: Colors.white,
+            padding: EdgeInsets.symmetric(horizontal: 5.w),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 100.w,
+                  child: TextButton(
+                    onPressed: () async {
+                      dynamic account = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ScanQR(),
+                        ),
+                      );
 
-                  code = '812617213713';
-
-                  if (code != null) {
-                    setState(() {
-                      isValidating = true;
-                    });
-
-                    setState(() {
-                      isValidating = false;
-                    });
-
-                    showModalBottomSheet(
-                      context: context,
-                      builder: (context) => AccountResult(),
-                    );
-                  }
-                },
-                child: Container(
-                  color: Color(0xFFFF8A8A),
-                  alignment: Alignment.center,
-                  child: Text(
-                    'Scan QR',
-                    style: TextStyle(
-                      fontSize: 18.sp,
-                      color: Colors.white,
+                      checkAccount('812617213713');
+                    },
+                    style: TextButton.styleFrom(
+                      backgroundColor: primaryColor,
+                    ),
+                    child: Text(
+                      'Scan DuitNow QR',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
-              ),
+                SizedBox(height: 1.h),
+                Row(
+                  children: [
+                    const Expanded(
+                      child: Divider(
+                        height: 0.5,
+                        color: primaryColor,
+                      ),
+                    ),
+                    SizedBox(width: 1.w),
+                    Text('or'),
+                    SizedBox(width: 1.w),
+                    const Expanded(
+                        child: Divider(
+                      height: 0.5,
+                      color: primaryColor,
+                    )),
+                  ],
+                ),
+                SizedBox(height: 1.h),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: _accountController,
+                        focusNode: _accountFocus,
+                        decoration: InputDecoration(
+                          hintText: 'Account Number',
+                          isDense: true,
+                          isCollapsed: true,
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 3.w,
+                            vertical: 1.5.h,
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20.sp),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 1.w),
+                    IconButton(
+                      onPressed: () {
+                        FocusScope.of(context).unfocus();
+                        if (_accountController.text.isNotEmpty) {
+                          checkAccount(_accountController.text);
+                        }
+                      },
+                      style: IconButton.styleFrom(
+                        backgroundColor: primaryColor,
+                      ),
+                      icon: Icon(
+                        Icons.search_rounded,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            Expanded(
-              child: InkWell(
-                onTap: () {},
-                child: Container(
-                  color: Color(0xFFD9D9D9),
+          ),
+          isValidating
+              ? Container(
+                  color: Colors.black.withOpacity(0.2),
+                  width: 100.w,
+                  height: 100.h,
                   alignment: Alignment.center,
-                  child: Text(
-                    'Enter Account Number',
-                    style: TextStyle(
-                      fontSize: 18.sp,
+                  child: Container(
+                    width: 40.sp,
+                    height: 40.sp,
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.all(20.sp),
+                    decoration: BoxDecoration(
                       color: Colors.white,
+                      borderRadius: BorderRadius.circular(20.sp),
+                    ),
+                    child: SpinKitFadingCircle(
+                      color: primaryColor,
+                      size: 25.sp,
                     ),
                   ),
-                ),
-              ),
-            ),
-          ],
-        ),
-        isValidating
-            ? Container(
-                color: Colors.black.withOpacity(0.2),
-                width: 100.w,
-                height: 100.h,
-                alignment: Alignment.center,
-                child: Container(
-                  width: 40.sp,
-                  height: 40.sp,
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.all(20.sp),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20.sp),
-                  ),
-                  child: SpinKitFadingCircle(
-                    color: primaryColor,
-                    size: 25.sp,
-                  ),
-                ),
-              )
-            : const SizedBox.shrink(),
-      ],
+                )
+              : const SizedBox.shrink(),
+        ],
+      ),
     );
   }
 }

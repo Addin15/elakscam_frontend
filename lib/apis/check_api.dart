@@ -5,7 +5,7 @@ import 'package:elakscam_frontend/models/account.dart';
 import 'package:http/http.dart';
 
 class CheckAPI {
-  checkAccount(String account) async {
+  static Future<Account> checkAccount(String account) async {
     String url = '${baseUrl}api/validate/$account';
 
     Response response = await get(
@@ -17,5 +17,12 @@ class CheckAPI {
         jsonDecode(response.body),
       );
     }
+
+    return Account(
+      accountNumber: account,
+      holderName: null,
+      appealed: null,
+      score: null,
+    );
   }
 }
