@@ -45,7 +45,7 @@ class _SearchPageState extends State<SearchPage> {
 
               if (result[0] == 'true') {
                 pageService.changePage(2);
-                pageService.setData1(result);
+                pageService.setData1(result[1]);
               }
             },
             child: const Text('Search Account Number'),

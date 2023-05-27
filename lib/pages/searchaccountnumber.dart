@@ -22,7 +22,6 @@ class _SearchAccountNumberState extends State<SearchAccountNumber> {
         children: [
           TextField(
             controller: myController,
-            obscureText: true,
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
               labelText: 'Account Number',
