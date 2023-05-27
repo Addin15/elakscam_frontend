@@ -1,3 +1,4 @@
+import 'package:elakscam_frontend/configs/color.dart';
 import 'package:elakscam_frontend/pages/nav.dart';
 import 'package:elakscam_frontend/services/page_service.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
               title: 'ElakScam',
               debugShowCheckedModeBanner: false,
               theme: ThemeData(
+                primaryColor: primaryColor,
                 colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
                 useMaterial3: true,
               ),

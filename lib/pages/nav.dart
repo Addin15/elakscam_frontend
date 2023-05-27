@@ -1,3 +1,4 @@
+import 'package:elakscam_frontend/configs/color.dart';
 import 'package:elakscam_frontend/pages/premium_page.dart';
 import 'package:elakscam_frontend/pages/report_page.dart';
 import 'package:elakscam_frontend/pages/search_page.dart';
@@ -48,7 +49,7 @@ class _NavState extends State<Nav> {
               ),
             ],
             currentIndex: currentPage,
-            selectedItemColor: Colors.amber[800],
+            selectedItemColor: primaryColor,
             onTap: (value) {
               pageService.changePage(value);
             },
