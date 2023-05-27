@@ -1,7 +1,5 @@
-import 'dart:developer';
-
 import 'package:elakscam_frontend/pages/qrcodescanner.dart';
-import 'package:elakscam_frontend/pages/searchaccountnumber.dart';
+import 'package:elakscam_frontend/pages/search_account_number.dart';
 import 'package:elakscam_frontend/services/page_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

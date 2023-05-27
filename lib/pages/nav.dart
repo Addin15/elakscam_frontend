@@ -1,35 +1,28 @@
-import 'package:elakscam_frontend/pages/premiumpage.dart';
-import 'package:elakscam_frontend/pages/reportpage.dart';
-import 'package:elakscam_frontend/pages/searchpage.dart';
+import 'package:elakscam_frontend/pages/premium_page.dart';
+import 'package:elakscam_frontend/pages/report_page.dart';
+import 'package:elakscam_frontend/pages/search_page.dart';
 import 'package:elakscam_frontend/services/page_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+import 'home.dart';
+
+class Nav extends StatefulWidget {
+  const Nav({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<Nav> createState() => _NavState();
 }
 
-class _HomePageState extends State<HomePage> {
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-
+class _NavState extends State<Nav> {
   @override
   Widget build(BuildContext context) {
     return Consumer<PageService>(
       builder: (context, pageService, child) {
         int currentPage = pageService.activePage;
         return Scaffold(
-          appBar: AppBar(
-            title: const Text('BottomNavigationBar Sample'),
-          ),
           body: [
-            Text(
-              'Index 0: Home',
-              style: optionStyle,
-            ),
+            Home(),
             SearchPage(),
             ReportPage(),
             PremiumPage(),
