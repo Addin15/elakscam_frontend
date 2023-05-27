@@ -132,10 +132,10 @@ class _PremiumPageState extends State<PremiumPage> {
                           borderRadius: BorderRadius.circular(
                             15.sp,
                           ),
-                        ),
-                        child: Text(
-                          'Auto-update number database. No more manual update',
-                          textAlign: TextAlign.center,
+                          image: const DecorationImage(
+                            image: AssetImage("assets/svg/cardBackground1.png"),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
@@ -154,10 +154,10 @@ class _PremiumPageState extends State<PremiumPage> {
                           borderRadius: BorderRadius.circular(
                             15.sp,
                           ),
-                        ),
-                        child: Text(
-                          'AD Free - Get rid all advertisements',
-                          textAlign: TextAlign.center,
+                          image: const DecorationImage(
+                            image: AssetImage("assets/svg/cardBackground2.png"),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
