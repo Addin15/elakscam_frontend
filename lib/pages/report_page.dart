@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:elakscam_frontend/configs/host.dart';
-import 'package:elakscam_frontend/models/accountDetail.dart';
+import 'package:elakscam_frontend/models/report.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:elakscam_frontend/services/page_service.dart';
@@ -21,8 +21,8 @@ class _ReportPageState extends State<ReportPage> {
   final evidenceController = TextEditingController();
   final evidenceDesController = TextEditingController();
 
-  Future<AccountDetail> createReport(String account, String category,
-      String? evidence, String? evidenceDesc) async {
+  Future<Report> createReport(String account, String category, String? evidence,
+      String? evidenceDesc) async {
     Map<String, String> reportMapping = {
       'account': account,
       'category': category
@@ -48,7 +48,7 @@ class _ReportPageState extends State<ReportPage> {
     if (response.statusCode == 201) {
       // If the server did return a 201 CREATED response,
       // then parse the JSON.
-      return AccountDetail.fromJson(jsonDecode(response.body));
+      return Report.fromMap(jsonDecode(response.body));
     } else {
       // If the server did not return a 201 CREATED response,
       // then throw an exception.

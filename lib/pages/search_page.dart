@@ -1,8 +1,9 @@
-import 'package:elakscam_frontend/pages/qrcodescanner.dart';
-import 'package:elakscam_frontend/pages/search_account_number.dart';
-import 'package:elakscam_frontend/services/page_service.dart';
+import 'package:elakscam_frontend/configs/color.dart';
+import 'package:elakscam_frontend/pages/account_result.dart';
+import 'package:elakscam_frontend/pages/scan_qr.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -12,47 +13,93 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  bool isValidating = false;
+
   String qrValue = '';
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        children: [
-          ElevatedButton(
-            onPressed: () async {
-              final result = await Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => QrCodeScanner(screenClosed: false),
-                ),
-              );
-              result != ''
-                  ? setState(() {
-                      qrValue = result;
-                    })
-                  : '';
-            },
-            child: const Text('Scan QR'),
-          ),
-          Consumer<PageService>(builder: (context, pageService, child) {
-            return ElevatedButton(
-              onPressed: () async {
-                dynamic result = await Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const SearchAccountNumber(),
-                  ),
-                );
+    return Stack(
+      children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: InkWell(
+                onTap: () async {
+                  dynamic code = Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ScanQR()));
 
-                if (result[0] == 'true') {
-                  pageService.changePage(2);
-                  pageService.setData1(result[1]);
-                }
-              },
-              child: const Text('Search Account Number'),
-            );
-          }),
-        ],
-      ),
+                  code = '812617213713';
+
+                  if (code != null) {
+                    setState(() {
+                      isValidating = true;
+                    });
+
+                    setState(() {
+                      isValidating = false;
+                    });
+
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) => AccountResult(),
+                    );
+                  }
+                },
+                child: Container(
+                  color: Color(0xFFFF8A8A),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Scan QR',
+                    style: TextStyle(
+                      fontSize: 18.sp,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: InkWell(
+                onTap: () {},
+                child: Container(
+                  color: Color(0xFFD9D9D9),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Enter Account Number',
+                    style: TextStyle(
+                      fontSize: 18.sp,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        isValidating
+            ? Container(
+                color: Colors.black.withOpacity(0.2),
+                width: 100.w,
+                height: 100.h,
+                alignment: Alignment.center,
+                child: Container(
+                  width: 40.sp,
+                  height: 40.sp,
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.all(20.sp),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20.sp),
+                  ),
+                  child: SpinKitFadingCircle(
+                    color: primaryColor,
+                    size: 25.sp,
+                  ),
+                ),
+              )
+            : const SizedBox.shrink(),
+      ],
     );
   }
 }

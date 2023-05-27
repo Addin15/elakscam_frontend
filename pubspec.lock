@@ -78,6 +78,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
+  flutter_spinkit:
+    dependency: "direct main"
+    description:
+      name: flutter_spinkit
+      sha256: b39c753e909d4796906c5696a14daf33639a76e017136c8d82bf3e620ce5bb8e
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.2.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -144,14 +152,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.1"
-  mobile_scanner:
-    dependency: "direct main"
-    description:
-      name: mobile_scanner
-      sha256: "531725451c7506f4c57b4720da1fe33a1394cdf9d4a5075a3a2dd51e21113928"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.0"
   nested:
     dependency: transitive
     description:
@@ -176,6 +176,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.5"
+  qr_code_scanner:
+    dependency: "direct main"
+    description:
+      name: qr_code_scanner
+      sha256: f23b68d893505a424f0bd2e324ebea71ed88465d572d26bb8d2e78a4749591fd
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   responsive_sizer:
     dependency: "direct main"
     description:
@@ -255,4 +263,4 @@ packages:
     version: "2.1.4"
 sdks:
   dart: ">=3.0.2 <4.0.0"
-  flutter: ">=3.0.0"
+  flutter: ">=2.0.0"

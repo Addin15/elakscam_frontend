@@ -33,10 +33,31 @@ class _HomeState extends State<Home> {
       ),
       child: Column(
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Elak',
+                style: TextStyle(
+                  fontSize: 25.sp,
+                  fontWeight: FontWeight.bold,
+                  color: secondaryColor,
+                ),
+              ),
+              Text(
+                'Scam',
+                style: TextStyle(
+                  fontSize: 25.sp,
+                  fontWeight: FontWeight.bold,
+                  color: tertiaryColor,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 1.h),
           Image.asset(
-            'assets/svg/protected.png',
-            width: 12.w,
-            color: Colors.white,
+            'assets/images/logo.png',
+            width: 50.sp,
           ),
           SizedBox(height: 1.h),
           Text(
