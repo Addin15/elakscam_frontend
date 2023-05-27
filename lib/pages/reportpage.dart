@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:elakscam_frontend/services/page_service.dart';
 
 class ReportPage extends StatefulWidget {
   const ReportPage({super.key});
@@ -10,16 +12,10 @@ class ReportPage extends StatefulWidget {
 class _ReportPageState extends State<ReportPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: widget),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: const Text('Search Account Number'),
-        ),
-      ),
-    );
+    return Column(children: [
+      Consumer<PageService>(builder: (context, pageService, child) {
+        return Text(pageService.data);
+      }),
+    ]);
   }
 }
