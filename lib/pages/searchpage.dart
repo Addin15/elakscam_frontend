@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:elakscam_frontend/pages/qrcodescanner.dart';
 import 'package:elakscam_frontend/pages/searchaccountnumber.dart';
 import 'package:elakscam_frontend/services/page_service.dart';
@@ -35,7 +37,7 @@ class _SearchPageState extends State<SearchPage> {
         Consumer<PageService>(builder: (context, pageService, child) {
           return ElevatedButton(
             onPressed: () async {
-              final result = await Navigator.of(context).push(
+              dynamic result = await Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => const SearchAccountNumber(),
                 ),
