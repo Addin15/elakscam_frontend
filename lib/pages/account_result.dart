@@ -219,7 +219,7 @@ class _AccountResultState extends State<AccountResult> {
                   children: [
                     Text('${account.totalReports} Community Report'),
                     SizedBox(height: 0.5.h),
-                    Text(account.holderName ?? 'Unknown'),
+                    Text('Ticket Scammer'),
                   ],
                 ),
               ),
