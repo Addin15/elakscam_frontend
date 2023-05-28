@@ -63,6 +63,8 @@ class _AccountResultState extends State<AccountResult> {
               SizedBox(height: 2.h),
               Text(
                 account.holderName ?? account.accountNumber.toString(),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   color: Color(0xFF283145),
                   fontSize: 20.sp,

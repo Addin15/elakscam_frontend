@@ -100,7 +100,11 @@ class _ReportListPageState extends State<ReportListPage> {
                         child: Card(
                           child: ListTile(
                             leading: Icon(Icons.report),
-                            title: Text(report.accountNumber.toString()),
+                            title: Text(
+                              report.accountNumber.toString(),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                             subtitle: Text(report.category.toString()),
                           ),
                         ),

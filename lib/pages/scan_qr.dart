@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -14,6 +15,8 @@ class _ScanQRState extends State<ScanQR> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   QRViewController? controller;
 
+  bool isFound = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +28,10 @@ class _ScanQRState extends State<ScanQR> {
               onQRViewCreated: (controller) {
                 this.controller = controller;
                 controller.scannedDataStream.listen((scanData) {
-                  Navigator.pop(context, scanData.code);
+                  if (isFound == false) Navigator.pop(context, scanData.code);
+                  setState(() {
+                    isFound = true;
+                  });
                 });
               },
             ),
