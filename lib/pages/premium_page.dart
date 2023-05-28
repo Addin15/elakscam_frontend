@@ -113,6 +113,22 @@ class _PremiumPageState extends State<PremiumPage> {
                                 ),
                               ],
                             ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Icon(
+                                  Icons.done_rounded,
+                                  color: tertiaryColor,
+                                ),
+                                SizedBox(width: 1.5.w),
+                                Text(
+                                  'Unlimited Reports',
+                                  style: TextStyle(
+                                    fontSize: 16.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ),
