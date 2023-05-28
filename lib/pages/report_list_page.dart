@@ -44,7 +44,14 @@ class _ReportListPageState extends State<ReportListPage> {
               fontWeight: FontWeight.w600,
             ),
           )),
-          SizedBox(height: 2.h),
+          SizedBox(
+            height: 20,
+          ),
+          Image(
+            image: const AssetImage("assets/svg/warning.png"),
+            height: 15.h,
+            width: 25.h,
+          ),
           reports != null
               ? Expanded(
                   child: ListView.separated(

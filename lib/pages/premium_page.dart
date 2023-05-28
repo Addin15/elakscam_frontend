@@ -27,7 +27,7 @@ class _PremiumPageState extends State<PremiumPage> {
                 Padding(
                   padding: EdgeInsets.only(left: 5.w, right: 5.w, top: 3.h),
                   child: Text(
-                    'Introduce ElakScam Premium',
+                    'Introducing ElakScam Premium',
                     style: TextStyle(
                       color: primaryColor,
                       fontWeight: FontWeight.bold,
