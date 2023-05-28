@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:elakscam_frontend/apis/report_api.dart';
 import 'package:elakscam_frontend/models/account.dart';
 import 'package:elakscam_frontend/pages/create_report_page.dart';
@@ -71,14 +73,32 @@ class _AccountResultState extends State<AccountResult> {
                 ),
               ),
               SizedBox(height: 0.5.h),
-              Text(
-                account.score == null
-                    ? 'No Search Result Found'
-                    : '${account.score}%',
-                style: TextStyle(
-                  color: Color(0xFF283145),
-                  fontSize: 16.sp,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    account.score == null
+                        ? 'No Search Result Found'
+                        : '${account.score} Scammer Score',
+                    style: TextStyle(
+                      color: Color(0xFF283145),
+                      fontSize: 18.sp,
+                    ),
+                  ),
+                  SizedBox(width: 1.w),
+                  CircleAvatar(
+                    radius: 15.sp,
+                    child: IconButton(
+                      padding: EdgeInsets.zero,
+                      splashRadius: 14,
+                      onPressed: () {
+                        log('clicked');
+                      },
+                      iconSize: 14,
+                      icon: Icon(Icons.question_mark_rounded),
+                    ),
+                  ),
+                ],
               ),
               SizedBox(height: 1.h),
               Row(
