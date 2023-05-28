@@ -67,14 +67,16 @@ class _SearchPageState extends State<SearchPage> {
                   width: 100.w,
                   child: TextButton(
                     onPressed: () async {
-                      dynamic account = await Navigator.push(
+                      String? account = await Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => ScanQR(),
                         ),
                       );
 
-                      checkAccount('812617213713');
+                      if (account != null) {
+                        checkAccount(account);
+                      }
                     },
                     style: TextButton.styleFrom(
                       backgroundColor: primaryColor,

@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../apis/check_api.dart';
+import '../models/account.dart';
 import '../models/report.dart';
+import 'account_result.dart';
 
 class ReportListPage extends StatefulWidget {
   const ReportListPage({super.key});
@@ -28,6 +31,38 @@ class _ReportListPageState extends State<ReportListPage> {
   void initState() {
     getReports();
     super.initState();
+  }
+
+  bool isValidating = false;
+
+  checkAccount(String number) async {
+    setState(() {
+      isValidating = true;
+    });
+
+    Account account = await CheckAPI.checkAccount(number);
+
+    setState(() {
+      isValidating = false;
+    });
+
+    // ignore: use_build_context_synchronously
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20.sp),
+          topRight: Radius.circular(20.sp),
+        ),
+      ),
+      builder: (context) => DraggableScrollableSheet(
+        expand: false,
+        initialChildSize: 0.95,
+        maxChildSize: 0.95,
+        builder: (_, controller) => AccountResult(account: account),
+      ),
+    );
   }
 
   @override
@@ -58,11 +93,16 @@ class _ReportListPageState extends State<ReportListPage> {
                     itemBuilder: (context, index) {
                       Report report = reports![index];
 
-                      return Card(
-                        child: ListTile(
-                          leading: Icon(Icons.report),
-                          title: Text(report.accountNumber.toString()),
-                          subtitle: Text(report.category.toString()),
+                      return GestureDetector(
+                        onTap: () {
+                          checkAccount(report.accountNumber.toString());
+                        },
+                        child: Card(
+                          child: ListTile(
+                            leading: Icon(Icons.report),
+                            title: Text(report.accountNumber.toString()),
+                            subtitle: Text(report.category.toString()),
+                          ),
                         ),
                       );
                     },
