@@ -7,7 +7,6 @@ import 'package:lottie/lottie.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../configs/color.dart';
-import '../models/report.dart';
 
 class AccountResult extends StatefulWidget {
   const AccountResult({
@@ -23,6 +22,14 @@ class AccountResult extends StatefulWidget {
 
 class _AccountResultState extends State<AccountResult> {
   bool isSubmitting = false;
+
+  late Account account;
+
+  @override
+  void initState() {
+    account = widget.account;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +62,7 @@ class _AccountResultState extends State<AccountResult> {
               ),
               SizedBox(height: 2.h),
               Text(
-                widget.account.holderName ??
-                    widget.account.accountNumber.toString(),
+                account.holderName ?? account.accountNumber.toString(),
                 style: TextStyle(
                   color: Color(0xFF283145),
                   fontSize: 20.sp,
@@ -64,9 +70,9 @@ class _AccountResultState extends State<AccountResult> {
               ),
               SizedBox(height: 0.5.h),
               Text(
-                widget.account.score == null
+                account.score == null
                     ? 'No Search Result Found'
-                    : '${widget.account.score}%',
+                    : '${account.score}%',
                 style: TextStyle(
                   color: Color(0xFF283145),
                   fontSize: 16.sp,
@@ -101,8 +107,8 @@ class _AccountResultState extends State<AccountResult> {
                           isSubmitting = true;
                         });
 
-                        Report? report = await ReportAPI.createReport(
-                          number: widget.account.accountNumber!,
+                        Account? acc = await ReportAPI.createReport(
+                          number: account.accountNumber!,
                           category: data['category'],
                           evidence: data['evidence'],
                           evidenceDescription: data['evidence_description'],
@@ -112,9 +118,9 @@ class _AccountResultState extends State<AccountResult> {
                           isSubmitting = false;
                         });
 
-                        if (report != null) {
+                        if (acc != null) {
                           // ignore: use_build_context_synchronously
-                          showDialog(
+                          await showDialog(
                             context: context,
                             builder: (context) => Dialog(
                               backgroundColor: Colors.white,
@@ -138,6 +144,10 @@ class _AccountResultState extends State<AccountResult> {
                               ),
                             ),
                           );
+
+                          setState(() {
+                            account = acc;
+                          });
                         }
                       }
                     },
@@ -185,26 +195,36 @@ class _AccountResultState extends State<AccountResult> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('115 Community Report'),
-                    Text('Ticket Scammer'),
+                    Text('${account.totalReports} Community Report'),
+                    SizedBox(height: 0.5.h),
+                    Text(account.holderName ?? 'Unknown'),
                   ],
                 ),
               ),
-              SizedBox(height: 1.5.h),
-              Container(
-                width: 100.w,
-                padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 7.w),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.sp),
-                  color: Colors.white,
-                ),
-                child: Row(
-                  children: [
-                    Expanded(child: Text('Incorrect report. I am the owner')),
-                    Icon(Icons.search),
-                  ],
-                ),
-              ),
+              account.score != null
+                  ? Column(
+                      children: [
+                        SizedBox(height: 1.5.h),
+                        Container(
+                          width: 100.w,
+                          padding: EdgeInsets.symmetric(
+                              vertical: 2.h, horizontal: 7.w),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15.sp),
+                            color: Colors.white,
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                  child:
+                                      Text('Incorrect report. I am the owner')),
+                              Icon(Icons.search),
+                            ],
+                          ),
+                        ),
+                      ],
+                    )
+                  : const SizedBox.shrink(),
             ],
           ),
         ),

@@ -6,7 +6,7 @@ import 'package:http/http.dart';
 
 class CheckAPI {
   static Future<Account> checkAccount(String account) async {
-    String url = '${baseUrl}api/validate/$account';
+    String url = '$baseUrl/api/validate/$account';
 
     Response response = await get(
       Uri.parse(url),
@@ -23,6 +23,7 @@ class CheckAPI {
       holderName: null,
       appealed: null,
       score: null,
+      totalReports: 0,
     );
   }
 }
